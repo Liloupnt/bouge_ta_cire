@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bougie Ta Cire — Bougies artisanales</title>
+  <title>Bougie Ta Cire — Boutique artisanale</title>
   <style>
     :root{
       --beige:#f7efe7;
-      --beige-2:#fffaf6;
+      --beige-2:#fffaf7;
       --violet:#5d2f73;
-      --violet-2:#7b4a91;
-      --rose:#f5dfe8;
-      --rose-2:#fff2f6;
-      --texte:#332c31;
+      --violet-2:#7d4b92;
+      --rose:#f4dfe8;
+      --rose-2:#fff1f6;
+      --texte:#332b30;
       --blanc:#ffffff;
-      --ombre:0 12px 30px rgba(93,47,115,0.10);
+      --ombre:0 14px 34px rgba(93,47,115,0.12);
       --rayon:22px;
       --max:1180px;
     }
@@ -23,14 +23,19 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:Segoe UI, Arial, sans-serif;
+      font-family:Arial, Helvetica, sans-serif;
       color:var(--texte);
       background:linear-gradient(180deg,var(--beige-2),var(--beige));
     }
 
+    img{max-width:100%;display:block}
     a{text-decoration:none;color:inherit}
-    img{display:block;max-width:100%}
     button,input,textarea,select{font:inherit}
+
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
 
     .topbar{
       background:var(--violet);
@@ -38,28 +43,24 @@
       text-align:center;
       padding:10px 16px;
       font-size:14px;
-    }
-
-    .container{
-      width:min(var(--max), calc(100% - 32px));
-      margin:0 auto;
+      letter-spacing:.2px;
     }
 
     header{
       position:sticky;
       top:0;
-      z-index:50;
-      background:rgba(255,250,246,0.95);
+      z-index:100;
+      background:rgba(255,250,247,0.95);
       backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(93,47,115,0.08);
     }
 
     .nav{
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
       gap:20px;
-      padding:16px 0;
+      padding:14px 0;
     }
 
     .brand{
@@ -68,27 +69,29 @@
       gap:14px;
     }
 
-    .brand-badge{
-      width:62px;
-      height:62px;
+    .brand-logo{
+      width:64px;
+      height:64px;
       border-radius:18px;
-      background:white;
       overflow:hidden;
-      border:1px solid rgba(93,47,115,0.08);
+      background:white;
       box-shadow:var(--ombre);
+      border:1px solid rgba(93,47,115,0.08);
+      flex-shrink:0;
     }
 
-    .brand-badge img{width:100%;height:100%;object-fit:cover}
+    .brand-logo img{width:100%;height:100%;object-fit:cover}
 
     .brand strong{
       display:block;
-      font-size:22px;
       color:var(--violet);
+      font-size:24px;
+      line-height:1.05;
     }
 
     .brand span{
+      color:#6a5d68;
       font-size:14px;
-      color:#6a5c67;
     }
 
     .nav-links{
@@ -105,7 +108,7 @@
       background:transparent;
       color:var(--violet);
       border-radius:999px;
-      padding:10px 14px;
+      padding:11px 15px;
       cursor:pointer;
       font-weight:700;
     }
@@ -116,6 +119,7 @@
     .nav-cart{
       background:var(--violet) !important;
       color:white !important;
+      box-shadow:0 10px 24px rgba(93,47,115,0.18);
     }
 
     .cart-count{
@@ -125,15 +129,15 @@
       min-width:22px;
       height:22px;
       padding:0 6px;
-      margin-left:8px;
       border-radius:999px;
+      margin-left:8px;
       background:var(--rose);
       color:var(--violet);
       font-size:12px;
       font-weight:800;
     }
 
-    .hero{padding:58px 0 34px}
+    .hero{padding:54px 0 34px}
     .hero-grid{
       display:grid;
       grid-template-columns:1.1fr .9fr;
@@ -143,14 +147,14 @@
 
     .card,
     .hero-card,
-    .panel,
     .product-card,
-    .contact-card,
-    .faq-item,
+    .panel,
+    .review-card,
     .cart-box,
     .checkout-box,
-    .review-card{
-      background:rgba(255,255,255,0.88);
+    .contact-card,
+    .faq-item{
+      background:rgba(255,255,255,0.9);
       border:1px solid rgba(93,47,115,0.08);
       border-radius:var(--rayon);
       box-shadow:var(--ombre);
@@ -162,9 +166,9 @@
     }
 
     .hero-visual{
-      min-height:470px;
       color:white;
       background:linear-gradient(160deg,var(--violet),var(--violet-2));
+      min-height:470px;
       position:relative;
       overflow:hidden;
     }
@@ -178,7 +182,58 @@
     }
 
     .hero-visual::before{width:220px;height:220px;top:-40px;right:-40px}
-    .hero-visual::after{width:160px;height:160px;bottom:-30px;left:-30px}
+    .hero-visual::after{width:170px;height:170px;bottom:-30px;left:-30px}
+
+    .visual-content{
+      position:relative;
+      z-index:1;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:32px;
+    }
+
+    .visual-logo{
+      width:130px;
+      height:130px;
+      border-radius:28px;
+      overflow:hidden;
+      background:white;
+      padding:10px;
+      margin:0 auto 18px;
+      box-shadow:0 14px 28px rgba(0,0,0,0.16);
+    }
+
+    .visual-content h2{
+      margin:0 0 12px;
+      text-align:center;
+      font-size:30px;
+    }
+
+    .visual-content p{
+      margin:0 auto 24px;
+      max-width:420px;
+      text-align:center;
+      line-height:1.75;
+      color:rgba(255,255,255,0.88);
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .stat{
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:18px;
+      text-align:center;
+    }
+
+    .stat strong{display:block;font-size:24px;margin-bottom:6px}
 
     .pill{
       display:inline-flex;
@@ -195,16 +250,16 @@
 
     h1{
       margin:0 0 14px;
-      color:var(--violet);
       font-size:clamp(34px, 5vw, 60px);
       line-height:1.03;
+      color:var(--violet);
     }
 
     .lead{
-      margin:0 0 26px;
-      line-height:1.75;
+      margin:0 0 24px;
       font-size:18px;
-      color:#5a4f57;
+      line-height:1.8;
+      color:#5d525a;
     }
 
     .actions{display:flex;flex-wrap:wrap;gap:12px}
@@ -228,94 +283,60 @@
     .btn-soft{background:var(--rose);color:var(--violet)}
     .btn-full{width:100%}
 
-    .visual-wrap{
-      padding:28px;
-      position:relative;
-      z-index:1;
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .visual-logo{
-      width:126px;
-      height:126px;
-      border-radius:26px;
-      background:white;
-      padding:10px;
-      margin:0 auto 18px;
-      box-shadow:0 12px 24px rgba(0,0,0,0.14);
-      overflow:hidden;
-    }
-
-    .visual-wrap h2{
-      margin:0 0 10px;
-      text-align:center;
-      font-size:30px;
-    }
-
-    .visual-wrap p{
-      margin:0 auto 22px;
-      text-align:center;
-      max-width:420px;
-      line-height:1.7;
-      color:rgba(255,255,255,0.88);
-    }
-
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .stat{
-      text-align:center;
-      padding:18px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(255,255,255,0.10);
-    }
-    .stat strong{display:block;font-size:24px;margin-bottom:6px}
-
     section{padding:28px 0}
+
+    .grid-3,
+    .two-col,
+    .cart-layout,
+    .contact-grid,
+    .review-layout,
+    .footer-grid{
+      display:grid;
+      gap:20px;
+    }
+
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .two-col,.cart-layout,.contact-grid,.review-layout{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1.1fr .9fr}
+
+    .info-card,.panel,.review-card,.cart-box,.checkout-box,.contact-card{padding:24px}
 
     .section-head{
       display:flex;
-      flex-wrap:wrap;
       justify-content:space-between;
       align-items:end;
+      flex-wrap:wrap;
       gap:14px;
       margin-bottom:20px;
     }
 
     .section-head h2{
       margin:0;
-      font-size:34px;
       color:var(--violet);
+      font-size:34px;
     }
 
     .section-head p,
-    .muted,
     .panel p,
-    .faq-item p,
+    .review-card p,
     .contact-card p,
-    .review-card p{
+    .faq-item p,
+    .muted{
       margin:8px 0 0;
       line-height:1.75;
       color:#5f545c;
     }
 
-    .grid-3,
-    .two-col,
-    .contact-grid,
-    .cart-layout,
-    .review-layout{
-      display:grid;
-      gap:20px;
+    .info-card h3,
+    .panel h3,
+    .review-card h3,
+    .cart-box h3,
+    .checkout-box h3,
+    .contact-card h3,
+    .faq-item h3{
+      margin:0 0 10px;
+      color:var(--violet);
     }
-
-    .grid-3{grid-template-columns:repeat(3,1fr)}
-    .two-col,.contact-grid,.cart-layout,.review-layout{grid-template-columns:1fr 1fr}
-
-    .panel,.contact-card,.cart-box,.checkout-box,.review-card{padding:24px}
-    .info-card{padding:24px}
-    .info-card h3,.panel h3,.contact-card h3,.cart-box h3,.checkout-box h3,.review-card h3,.faq-item h3{margin:0 0 10px;color:var(--violet)}
 
     .shop-controls{
       display:flex;
@@ -325,7 +346,7 @@
     }
 
     .search-wrap{flex:1 1 320px}
-    .filter-wrap{width:min(220px,100%)}
+    .filter-wrap{width:min(230px,100%)}
 
     .input,.textarea,select{
       width:100%;
@@ -333,8 +354,8 @@
       border-radius:14px;
       border:1px solid rgba(93,47,115,0.14);
       background:white;
-      outline:none;
       color:var(--texte);
+      outline:none;
     }
 
     .input:focus,.textarea:focus,select:focus{
@@ -350,7 +371,11 @@
       gap:20px;
     }
 
-    .product-card{overflow:hidden;display:flex;flex-direction:column}
+    .product-card{
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
 
     .gallery{
       position:relative;
@@ -367,7 +392,9 @@
 
     .gallery-controls{
       position:absolute;
-      inset:auto 12px 12px 12px;
+      left:12px;
+      right:12px;
+      bottom:12px;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -376,28 +403,24 @@
 
     .gallery-btn{
       border:none;
-      width:36px;
-      height:36px;
+      width:38px;
+      height:38px;
       border-radius:999px;
       background:rgba(255,255,255,0.92);
       color:var(--violet);
       cursor:pointer;
-      font-weight:800;
-      box-shadow:0 6px 14px rgba(0,0,0,0.10);
+      font-weight:900;
+      box-shadow:0 8px 18px rgba(0,0,0,0.12);
     }
 
-    .gallery-dots{
-      display:flex;
-      gap:6px;
-      margin-left:auto;
-    }
+    .gallery-dots{display:flex;gap:6px;margin-left:auto}
 
     .gallery-dots span{
       width:8px;
       height:8px;
       border-radius:999px;
-      background:rgba(255,255,255,0.60);
-      border:1px solid rgba(93,47,115,0.14);
+      background:rgba(255,255,255,0.62);
+      border:1px solid rgba(93,47,115,0.15);
     }
 
     .gallery-dots span.active{background:var(--violet)}
@@ -408,22 +431,6 @@
       flex-direction:column;
       gap:12px;
       height:100%;
-    }
-
-    .product-top{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-    }
-
-    .product-top h3{margin:0;color:var(--violet)}
-
-    .price{
-      font-size:22px;
-      font-weight:900;
-      color:var(--violet);
-      white-space:nowrap;
     }
 
     .tag{
@@ -438,23 +445,48 @@
       font-weight:800;
     }
 
+    .product-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    .product-top h3{margin:0;color:var(--violet)}
+
+    .price{
+      white-space:nowrap;
+      color:var(--violet);
+      font-size:22px;
+      font-weight:900;
+    }
+
     .product-actions{display:flex;gap:10px;margin-top:auto}
     .product-actions .btn{flex:1}
 
-    .template-box,.notice,.cart-note{
+    .notice,
+    .template-box,
+    .cart-note{
       padding:18px;
       border-radius:18px;
-      line-height:1.75;
-      border:1px dashed rgba(93,47,115,0.22);
       background:linear-gradient(135deg,var(--rose-2),var(--beige));
+      border:1px dashed rgba(93,47,115,0.22);
       color:#5f525b;
+      line-height:1.75;
     }
 
-    .review-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+    .review-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
     .stars{color:#d5963a;font-size:18px;margin-bottom:10px}
-    .review-meta{margin-top:12px;font-size:14px;color:#7b6976;font-weight:700}
+    .review-meta{margin-top:12px;font-size:14px;color:#7d6a76;font-weight:700}
 
     .cart-items{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+
     .cart-item{
       display:grid;
       grid-template-columns:1fr auto;
@@ -467,8 +499,9 @@
     }
 
     .cart-item strong{color:var(--violet)}
-    .cart-item small{display:block;color:#7d6a76;margin-top:4px}
-    .cart-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .cart-item small{display:block;color:#7c6b76;margin-top:4px}
+
+    .cart-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 
     .qty-btn,.remove-btn{
       border:none;
@@ -479,30 +512,41 @@
     }
 
     .qty-btn{background:white;color:var(--violet);border:1px solid rgba(93,47,115,0.14)}
-    .remove-btn{background:#fff0f4;color:#a54266}
+    .remove-btn{background:#fff0f4;color:#a54366}
 
     .summary{display:grid;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(93,47,115,0.10)}
-    .summary-row{display:flex;justify-content:space-between;gap:16px;align-items:center}
-    .summary-row.total{font-size:22px;color:var(--violet);font-weight:900}
+
+    .summary-row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+    }
+
+    .summary-row.total{
+      color:var(--violet);
+      font-size:22px;
+      font-weight:900;
+    }
 
     .faq-list{display:grid;gap:14px}
     .faq-item{padding:20px}
 
     footer{
-      margin-top:24px;
-      padding:38px 0 50px;
-      background:linear-gradient(180deg,var(--violet),#4d2561);
+      margin-top:26px;
+      padding:38px 0 48px;
+      background:linear-gradient(180deg,var(--violet),#4e2463);
       color:white;
     }
 
-    .footer-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
     .footer-grid h3{margin:0 0 10px}
     .footer-grid p{margin:0;line-height:1.8;color:rgba(255,255,255,0.88)}
+
     .footer-links{display:grid;gap:10px}
     .footer-links a{color:white}
 
     @media (max-width: 980px){
-      .hero-grid,.grid-3,.two-col,.contact-grid,.cart-layout,.review-layout,.footer-grid{grid-template-columns:1fr}
+      .hero-grid,.grid-3,.two-col,.cart-layout,.contact-grid,.review-layout,.footer-grid{grid-template-columns:1fr}
       .stats{grid-template-columns:repeat(3,1fr)}
     }
 
@@ -517,13 +561,13 @@
   </style>
 </head>
 <body>
-  <div class="topbar">Bougie Ta Cire • Boutique indépendante • Bougies artisanales & créations personnalisées</div>
+  <div class="topbar">Bougie Ta Cire • Boutique indépendante • Créations artisanales & commandes personnalisables</div>
 
   <header>
     <div class="container nav">
       <div class="brand">
-        <div class="brand-badge">
-          <img src="Liceria &amp; Co..png" alt="Logo Bougie Ta Cire">
+        <div class="brand-logo">
+          <img src="logo.png" alt="Logo Bougie Ta Cire">
         </div>
         <div>
           <strong>Bougie Ta Cire</strong>
@@ -538,9 +582,7 @@
         <a href="#qui-sommes-nous">Qui sommes-nous</a>
         <a href="#avis">Avis</a>
         <a href="#contact">Contact</a>
-        <button class="nav-cart" onclick="document.getElementById('panier').scrollIntoView({behavior:'smooth'})">
-          Panier <span class="cart-count" id="cartCount">0</span>
-        </button>
+        <button class="nav-cart" onclick="document.getElementById('panier').scrollIntoView({behavior:'smooth'})">Panier <span class="cart-count" id="cartCount">0</span></button>
       </div>
     </div>
   </header>
@@ -549,28 +591,28 @@
     <section class="hero" id="accueil">
       <div class="container hero-grid">
         <div class="hero-card">
-          <div class="pill">✨ Jeune marque • Fait main • Personnalisable sur demande</div>
-          <h1>Des bougies artisanales pleines de douceur, de style et de personnalité.</h1>
+          <div class="pill">✨ Fait main • Coloris sur demande • Créations uniques</div>
+          <h1>Des bougies artisanales douces, élégantes et pleines de personnalité.</h1>
           <p class="lead">
-            Chez <strong>Bougie Ta Cire</strong>, chaque création est imaginée avec passion dans un univers doux, moderne et chaleureux. Marque indépendante, fabrication artisanale, coloris personnalisables et créations sur demande : ici, chaque bougie a sa petite touche unique.
+            Chez <strong>Bougie Ta Cire</strong>, chaque création est pensée avec passion dans un univers tendre, moderne et chaleureux. Boutique indépendante, fabrication artisanale et commandes personnalisables : ici, chaque bougie a sa propre touche spéciale.
           </p>
           <div class="actions">
-            <a class="btn btn-primary" href="#bougies">Voir la boutique</a>
+            <a class="btn btn-primary" href="#bougies">Découvrir la boutique</a>
             <a class="btn btn-secondary" href="#surmesure">Faire une demande personnalisée</a>
           </div>
         </div>
 
         <div class="hero-card hero-visual">
-          <div class="visual-wrap">
+          <div class="visual-content">
             <div class="visual-logo">
-              <img src="Liceria &amp; Co..png" alt="Logo Bougie Ta Cire">
+              <img src="logo.png" alt="Logo Bougie Ta Cire">
             </div>
             <h2>Bougie Ta Cire</h2>
-            <p>Une boutique indépendante où tout est réalisé artisanalement avec soin, créativité et envie de faire plaisir.</p>
+            <p>Une boutique indépendante où tout est imaginé et réalisé artisanalement avec soin, douceur et créativité.</p>
             <div class="stats">
-              <div class="stat"><strong>100%</strong><span>artisanal</span></div>
-              <div class="stat"><strong>4</strong><span>modèles déjà ajoutés</span></div>
-              <div class="stat"><strong>Sur demande</strong><span>couleurs & styles</span></div>
+              <div class="stat"><strong>100%</strong><span>fait main</span></div>
+              <div class="stat"><strong>4</strong><span>modèles en ligne</span></div>
+              <div class="stat"><strong>Sur demande</strong><span>couleurs & variantes</span></div>
             </div>
           </div>
         </div>
@@ -581,15 +623,15 @@
       <div class="container grid-3">
         <div class="card info-card">
           <h3>Univers soigné</h3>
-          <p>Une image de marque beige, violette et rose clair pour un rendu doux, pro et cohérent.</p>
+          <p>Une ambiance beige, violette et rose clair pour une boutique douce, professionnelle et cohérente.</p>
         </div>
         <div class="card info-card">
           <h3>Ajout illimité</h3>
-          <p>Le site est prévu pour ajouter autant de bougies que vous voulez, simplement en complétant la liste des produits.</p>
+          <p>Le site est pensé pour pouvoir ajouter facilement autant de bougies que vous le souhaitez plus tard.</p>
         </div>
         <div class="card info-card">
-          <h3>Commande facile</h3>
-          <p>Panier, contact direct et demande personnalisée déjà prêts pour recevoir les premières commandes.</p>
+          <h3>Commande simple</h3>
+          <p>Panier, contact direct et demande personnalisée sont déjà intégrés pour recevoir vos premières commandes.</p>
         </div>
       </div>
     </section>
@@ -599,13 +641,13 @@
         <div class="section-head">
           <div>
             <h2>Nos bougies</h2>
-            <p>Découvre les modèles disponibles. Les fiches produits affichent les photos, les variantes et les prix, avec ajout au panier en un clic.</p>
+            <p>Découvre les modèles disponibles, leurs variantes et leurs coloris. Les fiches produits permettent de faire défiler les photos et d’ajouter directement au panier.</p>
           </div>
         </div>
 
         <div class="shop-controls">
           <div class="search-wrap">
-            <input id="searchInput" class="input" type="text" placeholder="Rechercher une bougie, un style, un modèle..." oninput="renderProducts()">
+            <input id="searchInput" class="input" type="text" placeholder="Rechercher une bougie, un style, un mot-clé..." oninput="renderProducts()">
           </div>
           <div class="filter-wrap">
             <select id="filterInput" onchange="renderProducts()">
@@ -620,8 +662,8 @@
         <div id="productsGrid" class="products"></div>
 
         <div class="template-box" style="margin-top:20px">
-          <strong>Ajouter d'autres produits plus tard :</strong><br>
-          Le site est prêt pour accueillir autant de bougies que souhaité. Il suffit d'ajouter un nouvel objet dans le tableau <strong>products</strong> du code avec le nom, le prix, la description, la catégorie et les images.
+          <strong>Pour ajouter d’autres bougies :</strong><br>
+          Il suffira d’ajouter un nouvel objet dans le tableau <strong>products</strong> du code avec le nom, le prix, la description, la catégorie et les images.
         </div>
       </div>
     </section>
@@ -630,21 +672,17 @@
       <div class="container two-col">
         <div class="panel">
           <h3>Commande personnalisée</h3>
-          <p>
-            Tu veux une couleur précise, un modèle particulier, une quantité spéciale ou une création pour un événement ? Bougie Ta Cire propose des commandes personnalisables sur demande.
-          </p>
-          <div class="notice" style="margin-top:16px">
-            Parfait pour : cadeaux, anniversaires, baptêmes, petites séries, décoration de table, événements et demandes sur thème.
-          </div>
+          <p>Tu veux une couleur précise, une quantité spéciale, une variante particulière ou une création pour un événement ? Bougie Ta Cire propose des commandes personnalisables sur demande.</p>
+          <div class="notice" style="margin-top:16px">Parfait pour : cadeaux, anniversaires, baptêmes, décoration de table, petites séries et commandes sur thème.</div>
         </div>
 
         <div class="panel">
           <h3>Envoyer une demande</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
-            <input id="customName" class="input" placeholder="Votre prénom / nom">
-            <input id="customContact" class="input" placeholder="Téléphone">
+            <input class="input" placeholder="Votre prénom / nom">
+            <input class="input" placeholder="Téléphone">
           </div>
-          <textarea id="customMessage" class="textarea" style="margin-top:14px" placeholder="Décrivez votre demande : couleur, modèle, quantité, occasion, date souhaitée..."></textarea>
+          <textarea class="textarea" style="margin-top:14px" placeholder="Décrivez votre demande : couleur, modèle, quantité, occasion, date souhaitée..."></textarea>
           <div class="actions" style="margin-top:14px">
             <a class="btn btn-primary" href="https://www.instagram.com/bouge_ta_cire" target="_blank" rel="noopener">Commander sur Instagram</a>
             <a class="btn btn-soft" href="tel:0768226316">Appeler la boutique</a>
@@ -657,21 +695,13 @@
       <div class="container two-col">
         <div class="panel">
           <h3>Qui sommes-nous ?</h3>
-          <p>
-            <strong>Bougie Ta Cire</strong>, c'est une boutique indépendante spécialisée dans la création de bougies artisanales. Chaque pièce est réalisée à la main avec soin, dans un univers doux, créatif et chaleureux.
-          </p>
-          <p>
-            Notre envie : proposer des bougies originales, jolies et personnalisables, qui apportent une vraie touche déco et une belle idée cadeau.
-          </p>
+          <p><strong>Bougie Ta Cire</strong>, c’est une boutique indépendante spécialisée dans la création de bougies artisanales. Chaque pièce est réalisée à la main avec soin, dans un univers doux, créatif et chaleureux.</p>
+          <p>Notre envie : proposer des bougies originales, jolies et personnalisables, qui apportent une vraie touche déco et une belle idée cadeau.</p>
         </div>
         <div class="panel">
           <h3>Notre façon de créer</h3>
-          <p>
-            Ici, tout est fait artisanalement. Nous prenons le temps de créer des bougies soignées, avec plusieurs coloris possibles et parfois plusieurs modèles pour une même création.
-          </p>
-          <div class="notice" style="margin-top:16px">
-            Boutique indépendante • Fabrication artisanale • Coloris sur demande • Créations personnalisables
-          </div>
+          <p>Ici, tout est fait artisanalement. Nous prenons le temps de créer des bougies soignées, avec plusieurs coloris possibles et parfois plusieurs modèles pour une même création.</p>
+          <div class="notice" style="margin-top:16px">Boutique indépendante • Fabrication artisanale • Coloris sur demande • Créations personnalisables</div>
         </div>
       </div>
     </section>
@@ -699,7 +729,7 @@
 
         <div class="review-card">
           <h3>Avis clients</h3>
-          <p>Les avis s'enregistrent directement dans le navigateur pour donner une boutique plus vivante et rassurante.</p>
+          <p>Les avis s’enregistrent dans le navigateur pour rendre la boutique plus vivante et rassurante.</p>
           <div id="reviewsList" class="review-list"></div>
         </div>
       </div>
@@ -716,18 +746,16 @@
             <div class="summary-row"><span>Préparation artisanale</span><strong>Incluse</strong></div>
             <div class="summary-row total"><span>Total</span><strong id="total">0€</strong></div>
           </div>
-          <div class="cart-note" style="margin-top:16px">
-            Cette version permet déjà de préparer les commandes. Pour un paiement en ligne réel, il faudra ensuite connecter un service comme Stripe ou PayPal.
-          </div>
+          <div class="cart-note" style="margin-top:16px">Cette version permet déjà de préparer les commandes. Pour un paiement en ligne réel, il faudra ensuite connecter un service comme Stripe ou PayPal.</div>
         </div>
 
         <div class="checkout-box">
           <h3>Finaliser la commande</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
-            <input id="checkoutName" class="input" placeholder="Nom complet">
-            <input id="checkoutPhone" class="input" placeholder="Téléphone">
+            <input class="input" placeholder="Nom complet">
+            <input class="input" placeholder="Téléphone">
           </div>
-          <textarea id="checkoutNote" class="textarea" style="margin-top:14px" placeholder="Message complémentaire : coloris souhaités, quantité, date, demande spéciale..."></textarea>
+          <textarea class="textarea" style="margin-top:14px" placeholder="Message complémentaire : coloris souhaités, quantité, date, demande spéciale..."></textarea>
           <div class="actions" style="margin-top:14px">
             <a class="btn btn-primary btn-full" href="https://www.instagram.com/bouge_ta_cire" target="_blank" rel="noopener">Commander via Instagram</a>
             <a class="btn btn-secondary btn-full" href="tel:0768226316">Commander par téléphone</a>
@@ -744,6 +772,7 @@
             <p>Quelques réponses simples pour rassurer les visiteurs et rendre le site encore plus professionnel.</p>
           </div>
         </div>
+
         <div class="faq-list">
           <div class="faq-item">
             <h3>Les coloris sont-ils personnalisables ?</h3>
@@ -805,7 +834,7 @@
         price: 8,
         category: "pâques animaux",
         description: "Toutes les couleurs sont possibles.",
-        images: ["IMG_6612.jpg", "IMG_6250.jpg"]
+        images: ["lapin-oeuf-1.jpg", "lapin-oeuf-2.jpg"]
       },
       {
         id: 2,
@@ -813,7 +842,7 @@
         price: 7,
         category: "pâques animaux",
         description: "2 modèles sont possibles : 1 debout et 1 penché vers l'avant.",
-        images: ["IMG_6208.jpg"]
+        images: ["petit-poussin.jpg"]
       },
       {
         id: 3,
@@ -821,15 +850,15 @@
         price: 8,
         category: "pâques oeufs",
         description: "Tous les coloris sont disponibles sur demande.",
-        images: ["IMG_7004.jpg", "IMG_7003.jpg"]
+        images: ["oeuf-fleuri-1.jpg", "oeuf-fleuri-2.jpg"]
       },
       {
         id: 4,
         name: "Oeuf lapin",
         price: 8,
         category: "pâques oeufs",
-        description: "Tous les coloris sont disponibles sur demande. Deux modèles sont possibles : oreilles droites ou penchées.",
-        images: ["IMG_7003.jpg", "IMG_6624.jpg"]
+        description: "Tous les coloris sont disponibles sur demande et il existe deux modèles possibles : oreilles droites ou penchées.",
+        images: ["oeuf-lapin-1.jpg", "oeuf-lapin-2.jpg"]
       }
     ];
 
@@ -873,13 +902,14 @@
           <div class="gallery">
             <img id="product-image-${product.id}" src="${product.images[0]}" alt="${escapeHtml(product.name)}">
             ${product.images.length > 1 ? `
-            <div class="gallery-controls">
-              <button class="gallery-btn" onclick="changeImage(${product.id}, -1)">‹</button>
-              <div class="gallery-dots" id="gallery-dots-${product.id}">
-                ${product.images.map((_, index) => `<span class="${index===0 ? 'active' : ''}"></span>`).join('')}
+              <div class="gallery-controls">
+                <button class="gallery-btn" onclick="changeImage(${product.id}, -1)">‹</button>
+                <div class="gallery-dots" id="gallery-dots-${product.id}">
+                  ${product.images.map((_, index) => `<span class="${index===0 ? 'active' : ''}"></span>`).join('')}
+                </div>
+                <button class="gallery-btn" onclick="changeImage(${product.id}, 1)">›</button>
               </div>
-              <button class="gallery-btn" onclick="changeImage(${product.id}, 1)">›</button>
-            </div>` : ''}
+            ` : ''}
           </div>
           <div class="product-body">
             <span class="tag">Collection Pâques</span>
@@ -936,12 +966,6 @@
 
     function removeItem(productId){
       cart = cart.filter(p => p.id !== productId);
-      saveCart();
-      renderCart();
-    }
-
-    function clearCart(){
-      cart = [];
       saveCart();
       renderCart();
     }
