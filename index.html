@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bouge Ta Cire — Boutique artisanale</title>
+  <style>
+    :root{
+      --beige:#f7efe7;
+      --beige-2:#fffaf7;
+      --violet:#5d2f73;
+      --violet-2:#7d4b92;
+      --rose:#f4dfe8;
+      --rose-2:#fff1f6;
+      --texte:#332b30;
+      --blanc:#ffffff;
+      --ombre:0 14px 34px rgba(93,47,115,0.12);
+      --rayon:22px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--texte);
+      background:linear-gradient(180deg,var(--beige-2),var(--beige));
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      background:var(--violet);
+      color:white;
+      text-align:center;
+      padding:10px 16px;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,250,247,0.95);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(93,47,115,0.08);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .brand-logo{
+      width:64px;
+      height:64px;
+      border-radius:18px;
+      overflow:hidden;
+      background:white;
+      box-shadow:var(--ombre);
+      border:1px solid rgba(93,47,115,0.08);
+      flex-shrink:0;
+    }
+
+    .brand-logo img{width:100%;height:100%;object-fit:cover}
+
+    .brand-logo{
+      width:auto;
+      height:64px;
+      aspect-ratio:338/200;
+      background:#e1cee6;
+    }
+
+    .hero-visual .visual-logo{
+      background:#e1cee6;
+      padding:0;
+    }
+
+    .hero-visual .visual-logo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .brand strong{
+      display:block;
+      color:var(--violet);
+      font-size:24px;
+      line-height:1.05;
+    }
+
+    .brand span{
+      color:#6a5d68;
+      font-size:14px;
+    }
+
+    .nav-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .nav-links a,
+    .nav-links button{
+      border:none;
+      background:transparent;
+      color:var(--violet);
+      border-radius:999px;
+      padding:11px 15px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover{background:rgba(93,47,115,0.08)}
+
+    .nav-cart{
+      background:var(--violet) !important;
+      color:white !important;
+      box-shadow:0 10px 24px rgba(93,47,115,0.18);
+    }
+
+    .cart-count{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:22px;
+      height:22px;
+      padding:0 6px;
+      border-radius:999px;
+      margin-left:8px;
+      background:var(--rose);
+      color:var(--violet);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .hero{padding:54px 0 34px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .card,
+    .hero-card,
+    .product-card,
+    .panel,
+    .review-card,
+    .cart-box,
+    .checkout-box,
+    .contact-card,
+    .faq-item{
+      background:rgba(255,255,255,0.9);
+      border:1px solid rgba(93,47,115,0.08);
+      border-radius:var(--rayon);
+      box-shadow:var(--ombre);
+    }
+
+    .hero-card{
+      padding:38px;
+      background:linear-gradient(145deg,var(--rose-2),var(--blanc) 55%, var(--beige));
+    }
+
+    .hero-visual{
+      color:white;
+      background:linear-gradient(160deg,var(--violet),var(--violet-2));
+      min-height:470px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-visual::before,
+    .hero-visual::after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      background:rgba(255,255,255,0.10);
+    }
+
+    .hero-visual::before{width:220px;height:220px;top:-40px;right:-40px}
+    .hero-visual::after{width:170px;height:170px;bottom:-30px;left:-30px}
+
+    .visual-content{
+      position:relative;
+      z-index:1;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:32px;
+    }
+
+    .visual-logo{
+      width:130px;
+      height:130px;
+      border-radius:28px;
+      overflow:hidden;
+      background:white;
+      padding:10px;
+      margin:0 auto 18px;
+      box-shadow:0 14px 28px rgba(0,0,0,0.16);
+    }
+
+    .visual-content h2{
+      margin:0 0 12px;
+      text-align:center;
+      font-size:30px;
+    }
+
+    .visual-content p{
+      margin:0 auto 24px;
+      max-width:420px;
+      text-align:center;
+      line-height:1.75;
+      color:rgba(255,255,255,0.88);
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .stat{
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:18px;
+      text-align:center;
+    }
+
+    .stat strong{display:block;font-size:24px;margin-bottom:6px}
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(93,47,115,0.10);
+      color:var(--violet);
+      font-size:14px;
+      font-weight:800;
+      margin-bottom:18px;
+    }
+
+    h1{
+      margin:0 0 14px;
+      font-size:clamp(34px, 5vw, 60px);
+      line-height:1.03;
+      color:var(--violet);
+    }
+
+    .lead{
+      margin:0 0 24px;
+      font-size:18px;
+      line-height:1.8;
+      color:#5d525a;
+    }
+
+    .actions{display:flex;flex-wrap:wrap;gap:12px}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      border-radius:999px;
+      padding:14px 20px;
+      cursor:pointer;
+      font-weight:800;
+      transition:transform .18s ease;
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--violet);color:white}
+    .btn-secondary{background:white;color:var(--violet);border:1px solid rgba(93,47,115,0.16)}
+    .btn-soft{background:var(--rose);color:var(--violet)}
+    .btn-full{width:100%}
+
+    section{padding:28px 0}
+
+    .grid-3,
+    .two-col,
+    .cart-layout,
+    .contact-grid,
+    .review-layout,
+    .footer-grid{
+      display:grid;
+      gap:20px;
+    }
+
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .two-col,.cart-layout,.contact-grid,.review-layout{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1.1fr .9fr}
+
+    .info-card,.panel,.review-card,.cart-box,.checkout-box,.contact-card{padding:24px}
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-bottom:20px;
+    }
+
+    .section-head h2{
+      margin:0;
+      color:var(--violet);
+      font-size:34px;
+    }
+
+    .section-head p,
+    .panel p,
+    .review-card p,
+    .contact-card p,
+    .faq-item p,
+    .muted{
+      margin:8px 0 0;
+      line-height:1.75;
+      color:#5f545c;
+    }
+
+    .info-card h3,
+    .panel h3,
+    .review-card h3,
+    .cart-box h3,
+    .checkout-box h3,
+    .contact-card h3,
+    .faq-item h3{
+      margin:0 0 10px;
+      color:var(--violet);
+    }
+
+    .shop-controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .search-wrap{flex:1 1 320px}
+    .filter-wrap{width:min(230px,100%)}
+
+    .input,.textarea,select{
+      width:100%;
+      padding:14px 15px;
+      border-radius:14px;
+      border:1px solid rgba(93,47,115,0.14);
+      background:white;
+      color:var(--texte);
+      outline:none;
+    }
+
+    .input:focus,.textarea:focus,select:focus{
+      border-color:var(--violet);
+      box-shadow:0 0 0 4px rgba(93,47,115,0.08);
+    }
+
+    .textarea{min-height:130px;resize:vertical}
+
+    .products{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+      gap:20px;
+    }
+
+    .product-card{
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .gallery{
+      position:relative;
+      aspect-ratio:1/1;
+      background:linear-gradient(145deg,var(--rose),var(--beige));
+      overflow:hidden;
+    }
+
+    .gallery img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .gallery-controls{
+      position:absolute;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .gallery-btn{
+      border:none;
+      width:38px;
+      height:38px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.92);
+      color:var(--violet);
+      cursor:pointer;
+      font-weight:900;
+      box-shadow:0 8px 18px rgba(0,0,0,0.12);
+    }
+
+    .gallery-dots{display:flex;gap:6px;margin-left:auto}
+
+    .gallery-dots span{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.62);
+      border:1px solid rgba(93,47,115,0.15);
+    }
+
+    .gallery-dots span.active{background:var(--violet)}
+
+    .product-body{
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      height:100%;
+    }
+
+    .collection-tabs{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      padding:4px 2px 12px;
+      margin-bottom:8px;
+      scrollbar-width:thin;
+    }
+
+    .collection-tab{
+      flex:0 0 auto;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:11px 18px;
+      border-radius:999px;
+      border:1px solid rgba(93,47,115,0.16);
+      background:var(--blanc);
+      color:var(--violet);
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+      transition:background .2s, color .2s, box-shadow .2s;
+    }
+
+    .collection-tab span{
+      min-width:24px;
+      padding:2px 7px;
+      border-radius:999px;
+      background:var(--rose-2);
+      font-size:12px;
+      text-align:center;
+    }
+
+    .collection-tab:hover{box-shadow:var(--ombre)}
+
+    .collection-tab.active{
+      background:var(--violet);
+      color:var(--blanc);
+      border-color:var(--violet);
+    }
+
+    .collection-tab.active span{background:rgba(255,255,255,0.2);color:var(--blanc)}
+
+    .collection-intro{
+      margin:0 0 18px;
+      padding:20px 22px;
+      border-radius:var(--rayon);
+      background:linear-gradient(135deg,var(--rose-2),var(--beige-2));
+      border:1px solid rgba(93,47,115,0.08);
+    }
+
+    .collection-intro h3{margin:0 0 6px;color:var(--violet)}
+    .collection-intro p{margin:0 0 8px}
+    .collection-intro span{font-size:13px;font-weight:800;color:var(--violet-2)}
+
+    .gallery{flex-shrink:0}
+
+    .price.price-request{
+      font-size:15px;
+      line-height:1.25;
+      white-space:normal;
+      text-align:right;
+      max-width:110px;
+    }
+
+    .tag{
+      display:inline-flex;
+      width:max-content;
+      padding:7px 11px;
+      border-radius:999px;
+      background:var(--rose-2);
+      color:var(--violet);
+      border:1px solid rgba(93,47,115,0.08);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .product-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    .product-top h3{margin:0;color:var(--violet)}
+
+    .price{
+      white-space:nowrap;
+      color:var(--violet);
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .product-actions{display:flex;gap:10px;margin-top:auto}
+    .product-actions .btn{flex:1}
+
+    .notice,
+    .template-box,
+    .cart-note{
+      padding:18px;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--rose-2),var(--beige));
+      border:1px dashed rgba(93,47,115,0.22);
+      color:#5f525b;
+      line-height:1.75;
+    }
+
+    .review-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .stars{color:#d5963a;font-size:18px;margin-bottom:10px}
+    .review-meta{margin-top:12px;font-size:14px;color:#7d6a76;font-weight:700}
+    .review-photo{margin-top:14px;border-radius:16px;overflow:hidden;border:1px solid rgba(93,47,115,0.10)}
+    .review-photo img{width:100%;height:220px;object-fit:cover}
+
+    .cart-items{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+
+    .cart-item{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(93,47,115,0.08);
+      background:var(--beige-2);
+    }
+
+    .cart-item strong{color:var(--violet)}
+    .cart-item small{display:block;color:#7c6b76;margin-top:4px}
+
+    .cart-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+
+    .qty-btn,.remove-btn{
+      border:none;
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    .qty-btn{background:white;color:var(--violet);border:1px solid rgba(93,47,115,0.14)}
+    .remove-btn{background:#fff0f4;color:#a54366}
+
+    .summary{display:grid;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(93,47,115,0.10)}
+
+    .summary-row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+    }
+
+    .summary-row.total{
+      color:var(--violet);
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .faq-list{display:grid;gap:14px}
+    .faq-item{padding:20px}
+
+    footer{
+      margin-top:26px;
+      padding:38px 0 48px;
+      background:linear-gradient(180deg,var(--violet),#4e2463);
+      color:white;
+    }
+
+    .footer-grid h3{margin:0 0 10px}
+    .footer-grid p{margin:0;line-height:1.8;color:rgba(255,255,255,0.88)}
+
+    .footer-links{display:grid;gap:10px}
+    .footer-links a{color:white}
+
+    @media (max-width: 980px){
+      .hero-grid,.grid-3,.two-col,.cart-layout,.contact-grid,.review-layout,.footer-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(3,1fr)}
+    }
+
+    @media (max-width: 720px){
+      .nav{flex-direction:column;align-items:flex-start}
+      .nav-links{justify-content:flex-start}
+      .hero-card{padding:28px}
+      .stats{grid-template-columns:1fr}
+      .product-actions{flex-direction:column}
+      .section-head h2{font-size:28px}
+    }
+  </style>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAATjUlEQVR42u1deXhU5bn/ljNzljmzZpIABpJAAklAEiBsagErFaha0Pqoba1WCxe17W2rPvXx3vbe1panLrf29rpQ23vr1t66XZSKYBFU1pIAkaAJeyAkJCSZzGTOOXP28333jwMppQsBIbM88+W/eTLJzPs77+993+/dYHtTF8if9B2UF0EegDwA+ZMHIA9A/uQB+FuHEJIHIG2HUirwAoQwD0B6pO/1eD/6uMkwjRzGIEMBIIT4BHH33l3rP3w34A8Q4uQBGPZPhuDWhi1LFt2EIAIgrwHDLX0kKzIhzsgRozRdy1NQGgwAy7KEEE1TEcplXzlzbQDPCSWjxmzbuS3gD9q2nQdgWA/GWJKlxQuXNO7e0XbssCj6HcfJAzCsx3Fsv+i/49a7nnjmsZSqCLyQkxhksheEZEWum1h3y5LbfvDTf+lP9Af8gdzjooy2bxjjRDI+Z9bcu760dMXPH/l438fRSNR2cgoDmPkZMduxQ4HQie4TP1v5+LXzFn5hweJYPJYzrhHMipSk4zgCL1i2/fjTPx192Zhlty9PSgMAgByID7LjOcIYa7oGAH3koZ+oqvLkyieC/qAbLuQBGD6b7DjOQHLgwfseCgVDTzzzqF/05wEYXrqEECHUG+u95877vF72md88FQlFst03zT5ThjHujfV+55/ub+9s39Kw2S8Gsjppk5W+BIRQN/Rlty9f/e5bhDhZbYozOiFDCHGIQwg5i+shhCktVVVZHY1EG5p2iD4xe5UAZazoeY4PBoLhYDgYCAm8QCkl9M9SRhA5jj3l8qmtB1sYhslea8xknMtPHIEXMMItB1raO46m1BTH8SWjSiZX10IIU2oKY+wqgWVZI4tG7m1tdpwsZqHMAsBxnGAguO9Q62urX/UJQmlJmV8M6Ia2afuHq9b8321LvjSpZrIkJV0MXBgggFntjGYQAISQQCC4tWHzm2vf/PqXl06smgShK1wIITxweN/KF565ZfFtM6fOkhUZAODxeE72nRRFP4PzFHQxeJ9juaPtbW+8/fojD63wi/5EMuE+4ABQQmhFeeX37//3nzz5o9KSsnAorOkaw3h2N++6cvpVlm1BlK0UhDLn8ed5fs36P9z4+S+GguGklGQwgxFGCCGEGYZJSsmiaNH8Ode+vX41x3IBMbhrT2M80T9j2ixFVRBEeQA+7U2DrMiSItVMmKikZIY5WzUZhpFkaXrdjK6TJygFiWT817997u4vLyOOA7O5ZiJTKOg03QP496/YLMvy+XyhYHhv654XXnn+a7feVVFekTzDJucB+FT+TzgUCfgDLQc++dzcBSf7TjKYcZ1LSimllGGYYCAIANh3sLVl/ycP3Pe9qoqqbJd+BgGAENI0dcnCG3/+3M9GX1ZaVVFlmIbr4DMMAyEcSCY2btmwbuM7sXjfi0/9juP4HJA+yKiEDCHEJ/j2H9r30usvji0dW11ZEwwELdvqi/Ue6zjWdfJERXmlx+NNSgPfWvrtvlifx+MB2X8yKyNGCBF4QTf0Hbu2H+s4pmoqxigUDJeNLqscO6GyfNzDKx6+/tobJoyr0g09N8rlMisSRgipmooQmj/3WoQQIQRCiCDSDC0gBv77d/8T9AfrJk7pT/TnAPlk6F2Qm22XZIlSCiCAAFq2FQkVNH7UsGP39kceWpGUkzkjfZDJxbkYY4wwoaQgXNDWfuRXL6387j0PejzeHCvPyugA0rbtSCiy/9C+n618/DvLHxhVPCr3anWZzJW+Y0cLCrc2bP7fVb996JsPjy4plWUpl8gnowFwiFNYULhqzRubd2z64YM/DviDOSn9DAWAEFIQKvj1y88d6zi64uFHKaUpTclJ6WeiDSCEhIPh515aebK3+0ff+4llW4apI4hyoAQoCwBwHCcUDL2x5vWevp4f3P9DSU5atsWynOgTeY7PSQwyCAC3Lam9s337zm3fvecBNyETDoa7TnZta9y671Arz/G51yyWWSlJn+B7/Q+vzpk1RxTERDLh9Xqfff7p/nj/2NKxxzqObtr+4fI77s2ZS4jMM8IQOI7T3dNdXzdD1VSBF5549rGy0eX3fu0bFACe5X785I927WmcOW12SlUgRHkKuugcBBBCHMfJshQJh99evzogBpZ+ZVlSSsYT/YZpjB83IZboZxgml2xBBgEAIbRtp752+sYt7yGE97buXbzwxp6+Hkopz/EQol3NO6sqqnQ9pygogwBACCkpeVb9FYUFRff/23eC/mDl2PE+wRcORQgljz21oqKsYvzYCXkbcGkxSKWUZbcvf+7llW+tXSX6RI7l5JTcceL41MnTbrruZkmR8ndBl/xounbzDbd0dnXU107vH+ivEMRbFt8WjRQmpYHc65rPOAAghJZt8RwPALxsVEn9lOmGYRimMSAlMMrB24hMfKAIIaJPrB5fs+qdNygFkiwRQnJS+hkKAMY4KSUXL1xyvPN4W/sRQfDl6kUQyORhHayXvXXJbb9f9Vuvx5MHIA3ukJySp06eNrJ41GurX4mEIznWIJ/pAAAAGMwkBhK333xHy4GW5pZmv8+fkxMUM9qrgxCl1NT1197w8msvmJaZk5ObMvcrEUIEnt/b2vzs80/X103/1Uu/DAXDjpOfljJch1IKIdQNLdYfqxw7PjEQ/9PObWKWdwVnEwAQAkpp40eN37j7W00fN9315aWvrn4F5Jw7lKEA2I4dDhWs27iW54SrZn6mq7uzurJmRNGID7a9H/AHc0kJMjQS9vG+I0cPvfvB2qVfWaYbOsMwSkq+/nNf2Nqw2SH5yrhLHwRQAH7x6/+8+0tLw6FIYiDuViSOHzee9XKtB1rcvu08AJfkOI4TCoRWPv/UzGmz6munG4be3tleEC7weDwAwtpJdU0f72JZLmdYKMPKUogTDIbWb/qjpmu3f/GrffE+iFDT3t31dTMsyzINfeKESd0nu3Rdy5mYILO+hofxxBP9725cu+z25ZKSFAWxveMYy7LVldWarlm2XRwtJoTG4jGG8QBA8wBc5MffL/r/8O5bM6bOLC4coRsGz/M//cWPR48a7WE87rAOluMEQYgPxBkG54YVyCAAMMJJKdnWfuTqq65JJBPRSPS11a909XT7Rb/tOAACQAFGyO/zKykZI0zzFHRx416WZY93theEo+FQBGN85NiRpr27H/vBEy0HWiCEg3zjYTymaUIIcyMoyyAAGMYTi/cFA0EIoMAL6za+89nPzJ8xZVYyObDvYIsgCJRSSoFu6hzLuRcVeQAuMggAQEqph2Fi/X2x/r762umyIn9u3oJ331/HellKqeM4kiz5/YGcaVTKFAAghLZtF0aL4gNxhFBPrMcniH7RLyvSFdOvSsrJA4f3iz5RViRN14qiRZZl5TXgIgNgmEZpSWk8EY/FY4AChmEYhtENzbatyTWTdzfvCodC+w/t8/vEaCRq2VZeAy5+DOz3+asqq9a893ZpSemAlOA47tnnn37yl/8xqeryvv4+rwd9sG3jzGmzbdvJmeK4THJDMZZk6abrbm5s2hEfiBeEow27GziWRwi1tR8pHV22tbFB1dTZ065QUnJ+ePclOYQQjuOPth954dXfTK6p6zhxnOd4jmUJpdFItKl59/I77y08bQByQwnSDwAhhAKKIGIwgzGmlAb8gaMdR19b/er7W95rOfBJVWU1BHDq5Gn33Hlfeek4JSVDAB1CHMd2HIcQghDKT028cPc/4A9ACFVNlWRJSSmarqbUFEa4vrYeUNLX3ze5pm70qJLyMeM6ujoOHz3MczzLcj7BF/QHA4EAz/K6qWtatl7PpREAiiCCGG/YtH7foX2GoSOMKSGEUowxxphjuZoJk8pGl1VXVi+4etFb61Z195ywbce0DMM0Lcu0HYfBTCQUnl1/ZfX4mixdN5Y2CqKUejyeX77wDM8L9XXTi6MjQsEQ62Uxw2CIIIK2bUejwYcf+dcNW97b+vYOJXWqVfjUSGPH0XS1N9Z3srd7w+b35syaO/eKeUpKyTo9YNIlfa/H2xvrWbtx7aPff3zG1FnuJFzTMlQ15TgOpZQQx7TMmdNmjS2rGEgOSG6nPASAAgooBNDr9VZVVtdOrNuw+b31m/644OqFsiJl3TjytFEQhNC0zGm103Z+1LB2w5rRl40pjhZfNrJkZPFI0ed3WQhCOH/uAgZjVdOiBYW2bVm25fV4Gcw4xInFYx9sfb+xaQfP80XRIsM0QBZSUNoAoIAihKOR6LeXP3C47WDLwZbDbYe2NGyhlPhFP8YMwzCsl/V6vCzL+gQfx3LFhSNGFI3s6Dre2dV5ortTUqRRxaO+8fV/TqnKmvVvZ6kjlCYA4CkbYBhmIhEvCEcXzFv0+WuutyxTVuSUqhimaZiGrmuqpmm6qmmqqqlbGjb/8YN1Ny66aUxJ6TVz5peNLg8GgpTS3Xs7MMZZunGVSZP8IaWUwQwFFABgO7YkJ90bZoZhIqECiNwfhCAcdPM5jq+qqOru6b5l8W398X7TMuOJuM/nwwhnbxyQNpNFKWUYDChwiOMuh8EYI4QopbZjm6apG7qmqYqqSLKUlJID0kB3T9eia6473tne3LLH3eqAMYYQZXVuIJ0AYMwAQP/m9H94+iCI3IMRhgBCiMpLx3Z1n2BZdnDSrqtSeQDO//YNYQihcz7DnyGELMvqhn7mqAJCCIAgS3UgvRqAAYC2Yw/98aWUSLIUCATP3N3j7hjIa8CFAAAhcBx7iAwOEbQsKxaPFUWLz0zIUEqz92I0fQAA6lKQ7TgQQnquKitKKefljnUcMwy9ZGSJaZinYIODK0xgNlZqpc8GUAAhRBifsgHnkh0hRBB8m7Z/MH7sBI7jTm9UovB0K0deA87/fyOEEbasIS0gwQjLsrT/8L55V35WUU5fzA1SULba4LQCACHCCFmWec7nlxAiiuKu5sYxl5WOKRljmMaZf4ZQAmG2muF02gAIIUTIsu2huKGUgq0NW+ZecbVhGH++c6YAQkAIyXtBF4KAe8Ng2+eo8Dk1zK/jqKZrbpn0Wb+ftwEXzkEQonPuwaOUsl62vbO9evxEL+s9c6HhIEHBrOWgtNoAACCCrkD/sRtKKUUIpVTFgz1/1RsDKSXZWyKR/vwRIecgEHerQ+3EugOH9x9sOxj4y1ZhCAHJ5jLp9FKQ60ieW3yO4/gE35233v3kyidi8ZjX6/2LJj0KsrdOK82fe4jMgRBSUkptTe1XvvjVZ59/+qw1b25ZUR6AC3GEhn4wxrFEbM7suZFQZOdHjT7BN2iNKaH5XZKfSgmGCARG2DCN6srqQ20HPYyHEnqmEaZ5AC5AAdyUy9CbjSgAXpY1TfOsF/M24AIhcP1LMOSUFgTAtu2/XuGGEQaAZmMkkFYNoKeyAkOfOwAh0nWdZbk/ZyNPRcJ5DTh/H5RSSgFlmKHuw6aAQghMyxA4HlB6ptJgjLI0GEDpkz8AgLoDQel56o3oEwddIHesUL48/UIgcMtsMcbnYYQppZSIop8QMtgp7Lavni8CZ6sdTE9pRTr7A9y2U3y6PGuIbpCu6+7kgsFImlAyRATcaiIIIcbYw3jc8lP3k9iObdu2QxwI4HD6VJcKAHdDtkOcfzByeFADhmqEKYAI6YbulqEPpoJdsZ5T7l6P1yeIGGPTNJSU0h+PSYpkGAYAgGW5YCAYDoZDgTAhTkpNZTcAbuWz1+MNB8MDyQHwd/x0l08QQkNVAAggBMFAsLunC2PsFqkDQPHff2Ad4iCI/KIfIdzTe3Lnnoa29rbeWK9lmRhjr5f1MB4AgGVbhmHYtiWK/vq66XUTpwybUWEuBbEwmFE19dH/WjFn1rxF13weIiTLEgAAIngGz1KXRjDCdGguPILINM1xZRXvb9kAIaSEIMwQQvyiv7O7E0J4yqSfPh6PJxgIptTUtsYtO3bv0HWtuHDEuPKKubPnhUMRQfB5PZ5BCjJMQ1bktvYjDU07RhSOGFNSemoiRdYB4M6fLwgV3Pu1b77y5u/e37ph8aIbr5o5h0FY1VXLslzvU+B9SkpWVCUSjthDy0q6rWSX19S+seb11oOtVRXV8URM1dQJFdVvrXtLkqWAGFA1lWEYnuMZxtPd0/XOhjV7W5qjBdF5V362urI6IAYc4himYdu2YeiarrrKByGAEAm8UF87febU2UpKHrZO/EvVokQp9Xq9oiB+9EnTm2tXEeLU182YXFMbjUTdqQ9ySvnFr56cNrn++mtvkOSh7sVw98kcOLL/uRdXPnjf9yrKK1NqiueFtRvWbGvcuvyOeyPhiCRLe1ub93yyJ9bfWzW+Zv5n5peWlJmWpemqm337By2urj0fzlH5l7BHzG0z8gmi18u2HvhkW+PWEydPYIT8YgBA0BfrnTF11nXzrz/fxi6HOAExsLe1+eXXX5wwrqru8inRSGE4GPpw+4evrf5918kunucryioXXL1wzux5kVBEURU3j5+ZscIlb9JzXR2BFziOV7VUPBFXUjKDmaJokc8nDv3ZPwsDURB1Q9/8pw8PHz3s+qACJ2CMC8IFtZOmlI8ppwAoimzbdoZ3EQ9Tl6QLA0KIYU51Y1uW5b5yYX/Qfa9f9EMATct0A2MP40UI6brmblrKiivSYQrE3NgHAOA4jm3b7iufRkDue5PSqb4aN+zQqAYgQBBl0e7bNETCF5EQzoQwS6+DcnAifx6A/MkDkD3n/wFxkgDE/0O+YwAAAABJRU5ErkJggg==">
+
+
+<link rel="stylesheet" href="immersif.css" /><link rel="stylesheet" href="finition-rose-violet.css" /></head>
+<body>
+  <div class="topbar">Nouveau : les collections <a href="#bougies" onclick="showCollection('Collection Automne')" style="color:inherit;font-weight:800;text-decoration:underline">Automne 🍂</a> et <a href="#bougies" onclick="showCollection('Collection Noël')" style="color:inherit;font-weight:800;text-decoration:underline">Noël ✨</a> sont arrivées • Créations artisanales & commandes personnalisables</div>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="assets/nouveau-logo-transparent.png" alt="Logo Bouge Ta Cire">
+        </div>
+        <div>
+          <strong class="sr-only">Bouge Ta Cire</strong>
+          <span>Créateur indépendant de bougies artisanales</span>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#bougies">Nos bougies</a>
+        <a href="#surmesure">Personnalisation</a>
+        <a href="#qui-sommes-nous">Qui sommes-nous</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact">Contact</a>
+        <button class="nav-cart" onclick="document.getElementById('panier').scrollIntoView({behavior:'smooth'})">Panier <span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <div class="pill">✨ Fait main • Coloris sur demande • Créations uniques</div>
+          <h1>Des bougies artisanales douces, élégantes et pleines de personnalité.</h1>
+          <p class="lead">
+            Chez <strong>Bouge Ta Cire</strong>, chaque création est pensée avec passion dans un univers tendre, moderne et chaleureux. Boutique indépendante, fabrication artisanale et commandes personnalisables : ici, chaque bougie a sa propre touche spéciale.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#bougies">Découvrir la boutique</a>
+            <a class="btn btn-secondary" href="#surmesure">Faire une demande personnalisée</a>
+          </div>
+        </div>
+
+        <div class="hero-card hero-visual">
+          <div class="visual-content">
+            <div class="visual-logo">
+              <img src="assets/nouveau-logo-transparent.png" alt="Logo Bouge Ta Cire">
+            </div>
+            <h2>Bouge Ta Cire</h2>
+            <p>Une boutique indépendante où tout est imaginé et réalisé artisanalement avec soin, douceur et créativité.</p>
+            <div class="stats">
+              <div class="stat"><strong>100%</strong><span>fait main</span></div>
+              <div class="stat"><strong id="modelCount">23</strong><span>modèles en ligne</span></div>
+              <div class="stat"><strong>Sur demande</strong><span>couleurs & variantes</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid-3">
+        <div class="card info-card">
+          <h3>Univers soigné</h3>
+          <p>Une ambiance beige, violette et rose clair pour une boutique douce, professionnelle et cohérente.</p>
+        </div>
+        <div class="card info-card">
+          <h3>Ajout illimité</h3>
+          <p>Le site est pensé pour pouvoir ajouter facilement autant de bougies que vous le souhaitez plus tard.</p>
+        </div>
+        <div class="card info-card">
+          <h3>Commande simple</h3>
+          <p>Panier, contact direct et demande personnalisée sont déjà intégrés pour recevoir vos premières commandes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bougies">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Nos bougies</h2>
+            <p>Découvre les modèles disponibles, leurs variantes et leurs coloris. Les fiches produits permettent de faire défiler les photos et d’ajouter directement au panier.</p>
+          </div>
+        </div>
+
+        <div class="collection-tabs" id="collectionTabs" role="tablist" aria-label="Collections"></div>
+        <div class="collection-intro" id="collectionIntro"></div>
+
+        <div class="shop-controls">
+          <div class="search-wrap">
+            <input id="searchInput" class="input" type="text" placeholder="Rechercher une bougie, un style, un mot-clé..." oninput="renderProducts()">
+          </div>
+          <div class="filter-wrap">
+            <select id="filterInput" onchange="renderProducts()">
+              <option value="all">Toutes les catégories</option>
+              <option value="noël">Collection Noël</option>
+              <option value="automne">Collection Automne</option>
+              <option value="halloween">Halloween</option>
+              <option value="religieux">Religieux</option>
+              <option value="été">Collection Été</option>
+              <option value="pâques">Collection Pâques</option>
+              <option value="animaux">Animaux</option>
+              <option value="oeufs">Œufs</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="productsGrid" class="products"></div>
+
+        <div class="template-box" style="margin-top:20px">
+          <strong>Pour ajouter d’autres bougies :</strong><br>
+          Il suffira d’ajouter un nouvel objet dans le tableau <strong>products</strong> du code avec le nom, le prix, la description, la catégorie et les images.
+        </div>
+      </div>
+    </section>
+
+    <section id="surmesure">
+      <div class="container two-col">
+        <div class="panel">
+          <h3>Commande personnalisée</h3>
+          <p>Tu veux une couleur précise, une quantité spéciale, une variante particulière ou une création pour un événement ? Bouge Ta Cire propose des commandes personnalisables sur demande.</p>
+          <div class="notice" style="margin-top:16px">Parfait pour : cadeaux, anniversaires, baptêmes, décoration de table, petites séries et commandes sur thème.</div>
+        </div>
+
+        <div class="panel">
+          <h3>Envoyer une demande</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+            <input class="input" placeholder="Votre prénom / nom">
+            <input class="input" placeholder="Téléphone">
+          </div>
+          <textarea class="textarea" style="margin-top:14px" placeholder="Décrivez votre demande : couleur, modèle, quantité, occasion, date souhaitée..."></textarea>
+          <div class="actions" style="margin-top:14px">
+            <a class="btn btn-primary" href="https://www.instagram.com/bouge_ta_cire" target="_blank" rel="noopener">Commander sur Instagram</a>
+            <a class="btn btn-soft" href="sms:0768226316">Écrire un message</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="qui-sommes-nous">
+      <div class="container two-col">
+        <div class="panel">
+          <h3>Qui sommes-nous ?</h3>
+          <p><strong>Bouge Ta Cire</strong>, c’est une boutique indépendante spécialisée dans la création de bougies artisanales. Chaque pièce est réalisée à la main avec soin, dans un univers doux, créatif et chaleureux.</p>
+          <p>Notre envie : proposer des bougies originales, jolies et personnalisables, qui apportent une vraie touche déco et une belle idée cadeau.</p>
+        </div>
+        <div class="panel">
+          <h3>Notre façon de créer</h3>
+          <p>Ici, tout est fait artisanalement. Nous prenons le temps de créer des bougies soignées, avec plusieurs coloris possibles et parfois plusieurs modèles pour une même création.</p>
+          <div class="notice" style="margin-top:16px">Boutique indépendante • Fabrication artisanale • Coloris sur demande • Créations personnalisables</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="avis">
+      <div class="container review-layout">
+        <div class="review-card">
+          <h3>Laisser un avis</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+            <input id="reviewName" class="input" placeholder="Votre prénom">
+            <select id="reviewStars">
+              <option value="5">5 étoiles</option>
+              <option value="4">4 étoiles</option>
+              <option value="3">3 étoiles</option>
+              <option value="2">2 étoiles</option>
+              <option value="1">1 étoile</option>
+            </select>
+          </div>
+          <textarea id="reviewText" class="textarea" style="margin-top:14px" placeholder="Votre avis sur la qualité, le design, la personnalisation..."></textarea>
+          <label style="display:block;margin-top:14px;font-weight:700;color:var(--violet)">Ajouter une photo à votre avis</label>
+          <input id="reviewPhoto" class="input" type="file" accept="image/*" style="margin-top:8px">
+          <div class="actions" style="margin-top:14px">
+            <button class="btn btn-primary" onclick="addReview()">Publier mon avis</button>
+            <button class="btn btn-secondary" onclick="resetReviews()">Réinitialiser</button>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <h3>Avis clients</h3>
+          <p>Les avis s’enregistrent dans le navigateur pour rendre la boutique plus vivante et rassurante.</p>
+          <div id="reviewsList" class="review-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="panier">
+      <div class="container cart-layout">
+        <div class="cart-box">
+          <h3>Panier</h3>
+          <p class="muted">Ajoute les créations qui te plaisent puis finalise ta demande de commande.</p>
+          <div id="cartItems" class="cart-items"></div>
+          <div class="summary">
+            <div class="summary-row"><span>Sous-total</span><strong id="subtotal">0€</strong></div>
+            <div class="summary-row"><span>Préparation artisanale</span><strong>Incluse</strong></div>
+            <div class="summary-row total"><span>Total</span><strong id="total">0€</strong></div>
+          </div>
+          <div class="cart-note" style="margin-top:16px">Cette version permet déjà de préparer les commandes. Pour un paiement en ligne réel, il faudra ensuite connecter un service comme Stripe ou PayPal.</div>
+        </div>
+
+        <div class="checkout-box">
+          <h3>Finaliser la commande</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+            <input class="input" placeholder="Nom complet">
+            <input class="input" placeholder="Téléphone">
+          </div>
+          <textarea class="textarea" style="margin-top:14px" placeholder="Message complémentaire : coloris souhaités, quantité, date, demande spéciale..."></textarea>
+          <div class="actions" style="margin-top:14px">
+            <a class="btn btn-primary btn-full" href="https://www.instagram.com/bouge_ta_cire" target="_blank" rel="noopener">Commander via Instagram</a>
+            <a class="btn btn-secondary btn-full" href="sms:0768226316">Commander par message</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Questions fréquentes</h2>
+            <p>Quelques réponses simples pour rassurer les visiteurs et rendre le site encore plus professionnel.</p>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3>Les coloris sont-ils personnalisables ?</h3>
+            <p>Oui, selon les modèles, plusieurs coloris sont possibles ou disponibles sur demande.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Comment commander ?</h3>
+            <p>Tu peux ajouter tes bougies au panier, puis contacter la boutique directement par Instagram ou par message pour finaliser la commande.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Les bougies sont-elles faites à la main ?</h3>
+            <p>Oui, Bouge Ta Cire est une boutique indépendante et chaque création est réalisée artisanalement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="contact-card">
+          <h3>Contact</h3>
+          <p><strong>Téléphone :</strong> 07 68 22 63 16</p>
+          <p><strong>Instagram :</strong> @bouge_ta_cire</p>
+          <div class="actions" style="margin-top:16px">
+            <a class="btn btn-primary" href="sms:0768226316">Écrire un message</a>
+            <a class="btn btn-soft" href="https://www.instagram.com/bouge_ta_cire" target="_blank" rel="noopener">Voir Instagram</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h3>Infos boutique</h3>
+          <p>Boutique indépendante de bougies artisanales, créations sur demande, collection douce et colorée, parfaite pour offrir ou décorer.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3>Bouge Ta Cire</h3>
+        <p>Créations artisanales, coloris personnalisables et petites collections pleines de douceur.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#bougies">Nos bougies</a>
+        <a href="#qui-sommes-nous">Qui sommes-nous</a>
+        <a href="#avis">Avis</a>
+        <a href="sms:0768226316">07 68 22 63 16</a>
+        <a href="https://www.instagram.com/bouge_ta_cire" target="_blank" rel="noopener">@bouge_ta_cire</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const ASSETS = {"logo.png": "assets/nouveau-logo-transparent.png", "lapin-oeuf-1.jpg": "assets/lapin-oeuf-1.jpg", "lapin-oeuf-2.jpg": "assets/lapin-oeuf-2.jpg", "petit-poussin.jpg": "assets/petit-poussin.jpg", "oeuf-fleuri-1.jpg": "assets/oeuf-fleuri-1.jpg", "oeuf-fleuri-2.jpg": "assets/oeuf-fleuri-2.jpg", "oeuf-lapin-1.jpg": "assets/oeuf-lapin-1.jpg", "oeuf-lapin-2.jpg": "assets/oeuf-lapin-2.jpg", "oeuf-triangulaire1.jpg": "assets/oeuf-triangulaire1.jpg", "oeuf-triangulaire2.jpg": "assets/oeuf-triangulaire2.jpg", "oeufs-traits1.jpg": "assets/oeufs-traits1.jpg", "oeufs-traits2.jpg": "assets/oeufs-traits2.jpg", "citron-horizontal.JPG": "assets/citron-horizontal.JPG", "citron-vertical.JPG": "assets/citron-vertical.JPG", "DSC_1178.JPEG": "assets/DSC_1178.JPEG", "fraise-vertical.JPG": "assets/fraise-vertical.JPG", "fraise-horizontal.JPG": "assets/fraise-horizontal.JPG", "aperol_1.JPEG": "assets/aperol_1.JPEG", "aperol_3.JPEG": "assets/aperol_3.JPEG", "aperol_2.JPEG": "assets/aperol_2.JPEG", "vierge1.JPEG": "assets/vierge1.JPEG", "vierge2.JPEG": "assets/vierge2.JPEG", "automne-fantome.jpg": "assets/automne-fantome.jpg", "automne-gland.jpg": "assets/automne-gland.jpg", "automne-potiron.jpg": "assets/automne-potiron.jpg", "automne-courge.jpg": "assets/automne-courge.jpg", "automne-citrouille.jpg": "assets/automne-citrouille.jpg", "noel-monsieur-flocon.jpg": "assets/noel-monsieur-flocon.jpg", "noel-rodolphe.jpg": "assets/noel-rodolphe.jpg", "noel-ange.jpg": "assets/noel-ange.jpg", "noel-casse-noisette.jpg": "assets/noel-casse-noisette.jpg", "noel-chalet-epices.jpg": "assets/noel-chalet-epices.jpg", "noel-pomme-de-pin.jpg": "assets/noel-pomme-de-pin.jpg", "noel-grand-sapin.jpg": "assets/noel-grand-sapin.jpg", "noel-petit-sapin.jpg": "assets/noel-petit-sapin.jpg"};
+
+    const products = [
+      {
+        id: 1,
+        name: "Lapin dans l'œuf",
+        price: 8,
+        category: "pâques animaux",
+        tag: "Collection Pâques",
+        description: "Toutes les couleurs sont possibles.",
+        images: ["lapin-oeuf-1.jpg", "lapin-oeuf-2.jpg"]
+      },
+      {
+        id: 2,
+        name: "Petit poussin",
+        price: 7,
+        category: "pâques animaux",
+        tag: "Collection Pâques",
+        description: "2 modèles sont possibles : 1 debout et 1 penché vers l'avant.",
+        images: ["petit-poussin.jpg"]
+      },
+      {
+        id: 3,
+        name: "Œuf fleuri",
+        price: 8,
+        category: "pâques oeufs",
+        tag: "Collection Pâques",
+        description: "Tous les coloris sont disponibles sur demande.",
+        images: ["oeuf-fleuri-1.jpg", "oeuf-fleuri-2.jpg"]
+      },
+      {
+        id: 4,
+        name: "Œuf lapin",
+        price: 8,
+        category: "pâques oeufs animaux",
+        tag: "Collection Pâques",
+        description: "Tous les coloris sont disponibles sur demande. Deux modèles possibles : oreilles droites ou penchées.",
+        images: ["oeuf-lapin-1.jpg", "oeuf-lapin-2.jpg"]
+      },
+      {
+        id: 5,
+        name: "Œuf triangulaire",
+        price: 7,
+        category: "pâques oeufs",
+        tag: "Collection Pâques",
+        description: "Tous les coloris sont disponibles sur demande.",
+        images: ["oeuf-triangulaire1.jpg", "oeuf-triangulaire2.jpg"]
+      },
+      {
+        id: 6,
+        name: "Œuf rayé",
+        price: 6,
+        category: "pâques oeufs",
+        tag: "Collection Pâques",
+        description: "Tous les coloris sont disponibles sur demande.",
+        images: ["oeufs-traits1.jpg", "oeufs-traits2.jpg"]
+      },
+      {
+        id: 7,
+        name: "Citron d'été",
+        price: 8,
+        category: "été",
+        tag: "Collection Été",
+        description: "Bougie citronnelle anti-moustiques qui sublimera vos terrasses tout en gardant les moustiques loin de vous cet été.",
+        images: ["citron-horizontal.JPG", "citron-vertical.JPG"]
+      },
+      {
+        id: 8,
+        name: "Cocktail fraise",
+        price: 13,
+        category: "été",
+        tag: "Collection Été",
+        description: "Bougie margarita fraise senteur fruits rouges qui apportera du style et une ambiance gourmande à vos tables d'été.",
+        images: ["fraise-vertical.JPG", "fraise-horizontal.JPG"]
+      },
+      {
+        id: 9,
+        name: "Cocktail Apérol",
+        price: 14,
+        category: "été",
+        tag: "Collection Été",
+        description: "Bougie Apérol Spritz hyper réaliste pour impressionner vos invités cet été et matcher vos apéritifs. Disponible en version opaque ou transparente.",
+        images: ["aperol_1.JPEG", "aperol_3.JPEG", "aperol_2.JPEG"]
+      },
+      {
+        id: 10,
+        name: "Vierge Marie",
+        price: 10,
+        category: "religieux",
+        tag: "Religieux",
+        description: "Bougie Vierge Marie artisanale, disponible en plusieurs coloris sur demande.",
+        images: ["DSC_1178.JPEG", "vierge1.JPEG", "vierge2.JPEG"]
+      },
+      {
+        id: 19,
+        name: "Le Fantôme",
+        price: 6,
+        category: "automne halloween",
+        tag: "Collection Automne",
+        description: "Le petit fantôme drapé le plus attachant de la saison : yeux creusés et plis de drap pour une déco d’Halloween aussi douce qu’espiègle.",
+        images: ["automne-fantome.jpg"]
+      },
+      {
+        id: 20,
+        name: "Le Gland",
+        price: 6,
+        category: "automne nature",
+        tag: "Collection Automne",
+        description: "Chapeau texturé et coque effet bois : un gland tout droit tombé du chêne pour une déco d’automne cocooning.",
+        images: ["automne-gland.jpg"]
+      },
+      {
+        id: 21,
+        name: "Le Potiron",
+        price: 6,
+        category: "automne halloween",
+        tag: "Collection Automne",
+        description: "Un potiron élancé aux côtes bien dessinées, dans un beige doux qui s’accorde avec toutes les déco d’automne.",
+        images: ["automne-potiron.jpg"]
+      },
+      {
+        id: 22,
+        name: "La Courge",
+        price: 6,
+        category: "automne",
+        tag: "Collection Automne",
+        description: "Une courge à la tige enroulée, dans un rose pêche tendre, pour une touche gourmande et originale.",
+        images: ["automne-courge.jpg"]
+      },
+      {
+        id: 23,
+        name: "La Citrouille",
+        price: 6,
+        category: "automne halloween",
+        tag: "Collection Automne",
+        description: "La citrouille orange vif à l’effet givré, star incontournable d’Halloween et des tables d’automne.",
+        images: ["automne-citrouille.jpg"]
+      },
+      {
+        id: 11,
+        name: "Monsieur Flocon",
+        price: 7,
+        category: "noël hiver personnages",
+        tag: "Collection Noël",
+        description: "Le petit gnome gardien des soirées au coin du feu. Une bougie artisanale tendre et pleine de caractère pour réchauffer la déco d’hiver.",
+        images: ["noel-monsieur-flocon.jpg"]
+      },
+      {
+        id: 12,
+        name: "Rodolphe",
+        price: 7,
+        category: "noël hiver animaux",
+        tag: "Collection Noël",
+        description: "Il a quitté le traîneau pour votre salon : un adorable renne à la cordelette dorée, parfait sous le sapin ou en petit cadeau.",
+        images: ["noel-rodolphe.jpg"]
+      },
+      {
+        id: 13,
+        name: "Ange",
+        price: 7,
+        category: "noël hiver religieux",
+        tag: "Collection Noël",
+        description: "Une douceur tombée du ciel. Ses ailes plissées et sa robe nervurée apportent une touche lumineuse et apaisante à la table de fête.",
+        images: ["noel-ange.jpg"]
+      },
+      {
+        id: 14,
+        name: "Casse-Noisette",
+        price: 8,
+        category: "noël hiver personnages",
+        tag: "Collection Noël",
+        description: "La garde royale de votre table de fête. Un soldat Casse-Noisette tout en relief, le grand classique des Noëls élégants.",
+        images: ["noel-casse-noisette.jpg"]
+      },
+      {
+        id: 15,
+        name: "Le Chalet d’Épices",
+        price: 8,
+        category: "noël hiver",
+        tag: "Collection Noël",
+        description: "Un refuge chaleureux au cœur de l’hiver : une petite maison à cheminée, fenêtres et porte en relief, pour un village de Noël tout en douceur.",
+        images: ["noel-chalet-epices.jpg"]
+      },
+      {
+        id: 16,
+        name: "Pomme de Pin",
+        price: 7,
+        category: "noël hiver nature",
+        tag: "Collection Noël",
+        description: "Tout droit sortie de la forêt enneigée. Une pomme de pin rouge profond, écaille par écaille, qui réchauffe instantanément une déco.",
+        images: ["noel-pomme-de-pin.jpg"]
+      },
+      {
+        id: 17,
+        name: "Grand Sapin",
+        price: 8,
+        category: "noël hiver sapins",
+        tag: "Collection Noël",
+        description: "L’élégance bleu nuit. Le grand sapin plissé de la collection, parfait en pièce maîtresse ou associé au Petit Sapin.",
+        images: ["noel-grand-sapin.jpg"]
+      },
+      {
+        id: 18,
+        name: "Petit Sapin",
+        price: 7,
+        category: "noël hiver sapins",
+        tag: "Collection Noël",
+        description: "Petit par la taille, grand par la magie. Le petit sapin vert plissé, plus petit que le Grand Sapin : idéal en duo ou en marque-place.",
+        images: ["noel-petit-sapin.jpg"]
+      },
+    ];
+
+    // Ordre d'affichage des collections (onglets + catalogue) : modifier cette liste pour le changer.
+    const COLLECTION_ORDER = ['Collection Noël', 'Collection Automne', 'Religieux', 'Collection Été', 'Collection Pâques'];
+    const collectionRank = tag => { const i = COLLECTION_ORDER.indexOf(tag); return i === -1 ? COLLECTION_ORDER.length : i; };
+    products.sort((a, b) => collectionRank(a.tag) - collectionRank(b.tag));
+
+    let cart = JSON.parse(localStorage.getItem('btc_cart') || '[]')
+      .map(item => { const p = products.find(x => x.id === item.id); return p ? { ...item, name: p.name, price: p.price } : item; });
+    let reviews = JSON.parse(localStorage.getItem('btc_reviews') || 'null') || [
+      { name: 'Camille', stars: 5, text: 'Très jolies créations, rendu super mignon et qualité au top.' },
+      { name: 'Lina', stars: 5, text: 'Les couleurs sont magnifiques et la personnalisation est vraiment un plus.' }
+    ];
+
+    function euros(value){
+      return value.toFixed(2).replace('.00','') + '€';
+    }
+
+    function hasPrice(value){
+      return typeof value === 'number' && isFinite(value);
+    }
+
+    function priceLabel(value){
+      return hasPrice(value) ? euros(value) : 'Prix sur demande';
+    }
+
+    function escapeHtml(text){
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function imgSrc(filename){
+      return ASSETS[filename] || '';
+    }
+
+    const COLLECTION_INFO = {
+      'Collection Automne': { icon: '🍂', text: 'Fantôme, gland, potiron, courge et citrouille : des bougies douces et chaleureuses pour l’automne et Halloween.' },
+      'Collection Noël': { icon: '✨', text: 'Sapins, renne, ange, Casse-Noisette… une collection féerique pour décorer et offrir pendant les fêtes.' },
+      'Collection Pâques': { icon: '🐣', text: 'Œufs, lapins et poussins aux couleurs tendres pour une table de Pâques pleine de douceur.' },
+      'Collection Été': { icon: '🍋', text: 'Bougies cocktails et agrumes pour vos terrasses et apéritifs d’été.' },
+      'Religieux': { icon: '🕊️', text: 'Des créations délicates pour les baptêmes, communions et moments de recueillement.' }
+    };
+    let activeCollection = 'all';
+
+    function collections(){
+      return [...new Set(products.map(p => p.tag))];
+    }
+
+    function collectionLabel(tag){
+      return tag.replace(/^Collection /, '');
+    }
+
+    function renderTabs(){
+      const tabs = [{ key: 'all', label: 'Toutes', count: products.length }]
+        .concat(collections().map(tag => ({ key: tag, label: collectionLabel(tag), count: products.filter(p => p.tag === tag).length })));
+      document.getElementById('collectionTabs').innerHTML = tabs.map(tab => `
+        <button type="button" role="tab" class="collection-tab${tab.key === activeCollection ? ' active' : ''}"
+          aria-selected="${tab.key === activeCollection}" onclick="showCollection(${escapeHtml(JSON.stringify(tab.key))})">
+          ${tab.key !== 'all' && COLLECTION_INFO[tab.key] ? COLLECTION_INFO[tab.key].icon + ' ' : ''}${escapeHtml(tab.label)}
+          <span>${tab.count}</span>
+        </button>`).join('');
+      const intro = document.getElementById('collectionIntro');
+      if(activeCollection === 'all'){
+        intro.innerHTML = '';
+        intro.style.display = 'none';
+      } else {
+        const info = COLLECTION_INFO[activeCollection] || { icon: '', text: '' };
+        const count = products.filter(p => p.tag === activeCollection).length;
+        intro.style.display = '';
+        intro.innerHTML = `<h3>${info.icon} ${escapeHtml(activeCollection)}</h3><p>${escapeHtml(info.text)}</p><span>${count} bougie${count > 1 ? 's' : ''}</span>`;
+      }
+    }
+
+    function showCollection(tag){
+      activeCollection = tag;
+      document.getElementById('filterInput').value = 'all';
+      document.getElementById('searchInput').value = '';
+      renderProducts();
+    }
+
+    function renderProducts(){
+      renderTabs();
+      const grid = document.getElementById('productsGrid');
+      const search = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filter = document.getElementById('filterInput').value;
+
+      const filtered = products.filter(product => {
+        const text = (product.name + ' ' + product.description + ' ' + product.category + ' ' + product.tag).toLowerCase();
+        const matchesSearch = !search || text.includes(search);
+        const matchesFilter = filter === 'all' || product.category.includes(filter);
+        const matchesCollection = activeCollection === 'all' || product.tag === activeCollection;
+        return matchesSearch && matchesFilter && matchesCollection;
+      });
+
+      if(!filtered.length){
+        grid.innerHTML = '<div class="template-box">Aucun produit ne correspond à votre recherche pour le moment.</div>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(product => `
+        <article class="product-card">
+          <div class="gallery">
+            <img id="product-image-${product.id}" src="${imgSrc(product.images[0])}" alt="${escapeHtml(product.name)}">
+            ${product.images.length > 1 ? `
+              <div class="gallery-controls">
+                <button class="gallery-btn" type="button" onclick="changeImage(${product.id}, -1)">‹</button>
+                <div class="gallery-dots" id="gallery-dots-${product.id}">
+                  ${product.images.map((_, index) => `<span class="${index===0 ? 'active' : ''}"></span>`).join('')}
+                </div>
+                <button class="gallery-btn" type="button" onclick="changeImage(${product.id}, 1)">›</button>
+              </div>
+            ` : ''}
+          </div>
+          <div class="product-body">
+            <span class="tag">${escapeHtml(product.tag)} </span>
+            <div class="product-top">
+              <h3>${escapeHtml(product.name)}</h3>
+              <div class="price${hasPrice(product.price) ? '' : ' price-request'}">${priceLabel(product.price)}</div>
+            </div>
+            <p>${escapeHtml(product.description)}</p>
+            <div class="product-actions">
+              <button class="btn btn-primary" type="button" onclick="addToCart(${product.id})">Ajouter au panier</button>
+              <a class="btn btn-secondary" href="https://www.instagram.com/bouge_ta_cire" target="_blank" rel="noopener">Commander</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function changeImage(productId, direction){
+      const product = products.find(p => p.id === productId);
+      if(!product || product.images.length < 2) return;
+      product.currentImage = typeof product.currentImage === 'number' ? product.currentImage : 0;
+      product.currentImage = (product.currentImage + direction + product.images.length) % product.images.length;
+      document.getElementById(`product-image-${productId}`).src = imgSrc(product.images[product.currentImage]);
+      const dots = document.querySelectorAll(`#gallery-dots-${productId} span`);
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === product.currentImage));
+    }
+
+    function saveCart(){
+      localStorage.setItem('btc_cart', JSON.stringify(cart));
+    }
+
+    function addToCart(productId){
+      const product = products.find(p => p.id === productId);
+      if(!product) return;
+      const item = cart.find(p => p.id === productId);
+      if(item){
+        item.quantity += 1;
+      } else {
+        cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1 });
+      }
+      saveCart();
+      renderCart();
+    }
+
+    function updateQuantity(productId, delta){
+      const item = cart.find(p => p.id === productId);
+      if(!item) return;
+      item.quantity += delta;
+      if(item.quantity <= 0){
+        cart = cart.filter(p => p.id !== productId);
+      }
+      saveCart();
+      renderCart();
+    }
+
+    function removeItem(productId){
+      cart = cart.filter(p => p.id !== productId);
+      saveCart();
+      renderCart();
+    }
+
+    function renderCart(){
+      const cartItems = document.getElementById('cartItems');
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const total = cart.reduce((sum, item) => sum + (hasPrice(item.price) ? item.price * item.quantity : 0), 0);
+      const onRequest = cart.some(item => !hasPrice(item.price));
+      document.getElementById('cartCount').textContent = count;
+      document.getElementById('subtotal').textContent = euros(total);
+      document.getElementById('total').textContent = euros(total) + (onRequest ? ' + prix sur demande' : '');
+
+      if(!cart.length){
+        cartItems.innerHTML = '<div class="template-box">Votre panier est vide pour le moment.</div>';
+        return;
+      }
+
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div>
+            <strong>${escapeHtml(item.name)}</strong>
+            <small>${hasPrice(item.price) ? euros(item.price) + " l'unité" : 'Prix sur demande'}</small>
+          </div>
+          <div class="cart-actions">
+            <button class="qty-btn" type="button" onclick="updateQuantity(${item.id}, -1)">−</button>
+            <strong>${item.quantity}</strong>
+            <button class="qty-btn" type="button" onclick="updateQuantity(${item.id}, 1)">+</button>
+            <button class="remove-btn" type="button" onclick="removeItem(${item.id})">Supprimer</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function saveReviews(){
+      try {
+        localStorage.setItem('btc_reviews', JSON.stringify(reviews));
+        return true;
+      } catch (error) {
+        console.error('Impossible d\'enregistrer les avis :', error);
+        return false;
+      }
+    }
+
+    function compressImage(file, callback){
+      const reader = new FileReader();
+      reader.onload = function(event){
+        const img = new Image();
+        img.onload = function(){
+          const maxSize = 900;
+          let width = img.width;
+          let height = img.height;
+          if (width > height && width > maxSize) {
+            height = Math.round(height * (maxSize / width));
+            width = maxSize;
+          } else if (height >= width && height > maxSize) {
+            width = Math.round(width * (maxSize / height));
+            height = maxSize;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          callback(canvas.toDataURL('image/jpeg', 0.72));
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function renderReviews(){
+      const list = document.getElementById('reviewsList');
+      list.innerHTML = reviews.map(review => `
+        <div class="review-card">
+          <div class="stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</div>
+          <p>${escapeHtml(review.text)}</p>
+          ${review.photo ? `<div class="review-photo"><img src="${review.photo}" alt="Photo d'avis client"></div>` : ''}
+          <div class="review-meta">${escapeHtml(review.name)}</div>
+        </div>
+      `).join('');
+    }
+
+    function addReview(){
+      const name = document.getElementById('reviewName').value.trim();
+      const stars = Number(document.getElementById('reviewStars').value);
+      const text = document.getElementById('reviewText').value.trim();
+      const photoInput = document.getElementById('reviewPhoto');
+      const file = photoInput.files[0];
+
+      if(!name || !text){
+        alert('Merci de remplir votre prénom et votre avis.');
+        return;
+      }
+
+      function finalizeReview(photoData = ''){
+        reviews.unshift({ name, stars, text, photo: photoData });
+        const saved = saveReviews();
+        if(!saved && photoData){
+          reviews[0].photo = '';
+          if (!saveReviews()) {
+            reviews.shift();
+            alert('Impossible d\'enregistrer cet avis pour le moment.');
+            return;
+          }
+          alert('Votre avis a bien été publié, mais la photo était trop lourde pour être enregistrée.');
+        }
+        renderReviews();
+        document.getElementById('reviewName').value = '';
+        document.getElementById('reviewText').value = '';
+        document.getElementById('reviewStars').value = '5';
+        photoInput.value = '';
+      }
+
+      if(file){
+        compressImage(file, finalizeReview);
+      } else {
+        finalizeReview('');
+      }
+    }
+
+    function resetReviews(){
+      localStorage.removeItem('btc_reviews');
+      reviews = [
+        { name: 'Camille', stars: 5, text: 'Très jolies créations, rendu super mignon et qualité au top.' },
+        { name: 'Lina', stars: 5, text: 'Les couleurs sont magnifiques et la personnalisation est vraiment un plus.' }
+      ];
+      renderReviews();
+    }
+
+    document.getElementById('modelCount').textContent = products.length;
+    renderProducts();
+    renderCart();
+    renderReviews();
+  </script>
+
+
+<script src="immersif.js"></script></body>
+</html>
